@@ -1,9 +1,0 @@
-import doxygen
-
-Import( [ 'env' ] )
-
-env.Template( source = 'Doxyfile.in' )
-doc = env.Doxygen( 'Doxyfile' )
-# doc = env.Command( '', [ 'Doxyfile' ], 'doxygen $SOURCE' )
-
-Return( 'doc' )

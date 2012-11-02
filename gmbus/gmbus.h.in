@@ -1,9 +1,10 @@
 /* gmbus.h
  *
- * Author: Andreas Büsching  <crunchy@bitkipper.net>
+ * Author: Andreas Büsching  <crunchy@tzi.de>
  *
- * Copyright (C) 2004, 2005, 2006, 2007
- *		Andreas Büsching <crunchy@bitkipper.net>
+ * $Id: file.c,v 1.4 2004/01/31 14:42:46 crunchy Exp $
+ *
+ * Copyright (C) 2004 Andreas Büsching <crunchy@tzi.de>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,5 +24,4 @@
 #include "libgmbus/init.h"
 #include "libgmbus/mclient.h"
 
-#include "libgmbus/rpcentity.h"
-#include "libgmbus/rpctypes.h"
+@GUIDELINE_INCLUDE@
