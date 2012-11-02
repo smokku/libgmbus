@@ -1,0 +1,33 @@
+for 0.2.0
+---------
+- [done] API re-design
+- [done] hello timer
+- [done] send reliable
+- [done] use more glib stuff
+- [done] RPCs
+- [done] check if message is addressed to us before delivering to client
+- [done] remove guides sub-directory
+- [done] mbus_init( GMainLoop * loop = NULL )
+- [done] install pkg-config scripts
+- [done] gmbus.h -> include all with one include file
+  -> optional include RPC stuff (gmbus.h.in)
+- [done] command callback get an MMessage object as argument
+  with mbus_message_get_current_command the relevant MCommand object
+- do something with the g_logger
+- [done] accept '*' in address element values as a wildcard
+- [done] M_OBJECT_OK: do we still need the ok flag or not public/internal?
+  [done] M_OBJECT_ALLOC need to set it TRUE
+
+for 0.4.0
+---------
+- add support for async RPCs
+	- enable application defined timeouts per RPC
+	- enable return "NULL" in RPC handler and return RPC "RETURN" later
+	  (within user defined period)
+	- in RPC-return handler define finer granularity of error codes
+	  NoUniqueHost
+	  RPCNotAvailable
+	  RPCFailed, etc.
+- add UTF-8 support for command name and MString arguments
+- add argument checker based on the C++ version margcheck.cc
+- implement properties specified in internet draft mbus guidelines

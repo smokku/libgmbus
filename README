@@ -1,0 +1,24 @@
+Memory Management
+-----------------
+
+This (should) apply to the memory management used for gmbus:
+
+1. Arguments of API functions
+  a) the memory of each object passed to the gmbus API is handled by the
+     library, meaning the memory is freed if gmbus does not need it anymore
+
+  b) except, the memory of const objects passed to the gmbus API that is not
+     freed by the library; if required the library creates its own copy of the
+     object.
+
+  c) if the argument is used as an return value (like the GString object passed
+     to the _read and _as_string functions) it is not freed by the library
+
+2. Arguments passed to callback functions
+  a) The memory of each argument passed to a callback function is handled by
+     the library, meaning it is allocated and freed. If the
+     application needs an object after the callback function is passed it has
+     to create its own copy of the object. If an object is passed on to another
+     function of the gmbus API within the callback function a copy has to be
+     created as in this case rule 1a) applies.
+

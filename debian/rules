@@ -1,0 +1,37 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/simple-patchsys.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+export DH_OPTIONS
+export DH_VERBOSE=0
+
+DEB_SCONS_PREFIX=/usr
+
+CONFIG_STATUS=$(DEB_BUILDDIR)/config.status
+CONFIG_LOG=$(DEB_BUILDDIR)/config.log
+SCONS_CMD=`which scons`
+
+
+common-configure-arch common-configure-indep:: common-configure-impl
+common-configure-impl:: $(CONFIG_STATUS)
+$(CONFIG_STATUS):
+	touch $(CONFIG_STATUS)
+	mkdir -p $(DEB_DESTDIR)$(DEB_SCONS_PREFIX)
+
+common-build-arch common-build-indep:: common-build-impl
+common-build-impl::
+	dh_installdirs
+	$(SCONS_CMD)
+
+common-install-arch common-install-indep:: common-install-impl
+common-install-impl::
+	$(SCONS_CMD) -Q install PREFIX=$(DEB_SCONS_PREFIX) DESTDIR=$(DEB_DESTDIR)
+	mkdir -p $(DEB_DESTDIR)/usr/share/doc/libgmbus1.0-doc/
+	cp -r doc/html/* $(DEB_DESTDIR)/usr/share/doc/libgmbus1.0-doc/
+clean::
+	$(SCONS_CMD) -c
+	rm -f $(CONFIG_STATUS)
+	rm -f $(CONFIG_LOG)
+	rm -f .sconsign.dblite
+	rm -rf .sconf_temp

@@ -1,0 +1,21 @@
+Source: libgmbus
+Section: misc
+Priority: optional
+Maintainer: Andreas Büsching <crunchy@bitkipper.net>
+Build-Depends: debhelper (>= 4.0.0), scons, cdbs, libglib2.0-dev
+Standards-Version: 3.6.2
+
+Package: libgmbus1.0-0
+Architecture: any
+Depends: ${shlibs:Depends}, libwnck18, libglib2.0-0
+Description: a lightweight implementation of the Mbus communication protocol (RFC 3259)
+
+Package: libgmbus1.0-dev
+Architecture: all
+Depends: ${shlibs:Depends}
+Description: Development files for the GMbus library
+
+Package: libgmbus1.0-doc
+Architecture: all
+Depends: ${shlibs:Depends}
+Description: Documentation of the GMbus library API

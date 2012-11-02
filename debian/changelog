@@ -1,0 +1,18 @@
+libgmbus (0.3.0-1) unstable; urgency=low
+
+  * new upstream version
+  * add new debian package libgmbus-doc: API documentation
+
+ -- Andreas Büsching <crunchy@bitkipper.net>  Sun, 16 Apr 2006 23:38:02 +0200
+
+libgmbus (0.2.5-1) unstable; urgency=low
+
+  * new upstream version
+
+ -- Andreas Büsching <crunchy@bbitkipper.net>  Wed,  5 Apr 2006 18:15:47 +0200
+
+libgmbus (0.2.4-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Andreas Büsching <crunchy@bitkipper.net>  Mon,  3 Apr 2006 23:15:38 +0200

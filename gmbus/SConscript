@@ -1,0 +1,22 @@
+Import( [ 'env_glib', 'SystemLibrary' ] )
+
+sources = [ 'base64.c', 'hmac.c', 'init.c', 'maddress.c', 'mclient.c',
+			'mcommand.c', 'md5.c', 'mcoder.c', 'mheader.c', 'mlink.c',
+			'mpayload.c', 'mmessage.c', 'mtrans.c', 'mutil.c', 'udp.c',
+			'mtypes.c', 'mconfig.c', 'rpcentity.c', 'rpctypes.c' ]
+headers = [ 'mbus.h', 'base64.h', 'hmac.h', 'init.h',
+			'maddress.h', 'mclient.h', 'mcommand.h', 'md5.h', 'mcoder.h',
+			'mheader.h', 'mlink.h', 'mpayload.h', 'mmessage.h', 'mtrans.h',
+			'mutil.h', 'udp.h', 'mtypes.h', 'mconfig.h', 'rpcentity.h',
+			'rpctypes.h', 'gmbus.h' ]
+headers_dir = '${DESTDIR}/${INCLUDEDIR}/gmbus/'
+
+libgmbus = SystemLibrary( env_glib, 'gmbus-1.0', sources )
+env_glib.Append( CPPPATH = [ '..' ] )
+
+for hfile in headers:
+	env_glib.Install( headers_dir, hfile )
+
+env_glib.Alias( 'install', headers_dir )
+
+Return( 'libgmbus' )

@@ -1,0 +1,44 @@
+Version 0.3.0
+-------------
+- replaced buildsystem automake with scons
+- add API version to library name and install include files into a
+  versioned subdirectory
+- renamed include path from libgmbus to gmbus
+
+Version 0.2.5
+-------------
+- Debian package support
+- fixed bug with local interface
+
+Version 0.2.4
+-------------
+- more IPv6 support
+- patch with fixes for Mac OS X
+- changed e-mail address
+
+Version 0.2.3
+-------------
+- support option SEND_UNICAST to deactivate the optimation sending
+  messages to unique receivers via unicast
+
+Version 0.2.2
+-------------
+- closed memory leak
+- fixed another bug for the mipsel architecture
+- IPv6 support !!!
+- new option INTERFACE in config file: select a specific network
+  interface for unicats traffic
+
+Version 0.2.1
+-------------
+- fixes for mipsel architecture (works on linksys router)
+  printf length modifier 'll' does not work
+
+Version 0.2.0
+-------------
+- new memory management
+- some small API changes
+- a bunch of bug fixes
+- Mbus integers are 64 bit numbers
+- scope HOSTLOCAL fixes
+- new method for calculating RPC ids

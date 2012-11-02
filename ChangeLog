@@ -1,0 +1,382 @@
+2007-02-24  Andreas Büsching  <crunchy@bitkipper.net>
+
+	* version 0.3.0
+	* new buildsystem 'scons'
+	* clean up
+	* moved include path from libgmbus/ to gmbus/
+	* add API version to library name and include path
+
+2006-08-30  Andreas Büsching  <crunchy@bitkipper.net>
+
+	* libgmbus/mtrans.c (__retransmit_reliable): check if the messge
+	is still in the hash before trying to free the memory of the key
+	and the message object; patch from Mark Koch <mkoch79@gmail.com>
+
+2006-06-28  Andreas Büsching   <crunchy@bitkipper.net>
+
+	* libgmbus/*.[ch]: fixed compiler and documentation warnings
+
+2006-04-16  Andreas Büsching   <crunchy@bitkipper.net>
+
+	* libgmbus/maddress.c (mbus_address_element_read): fixed newly
+	introduced bug in parsing the address element's value
+
+	* libgmbus/maddress.c (__generate_id): find external interface to
+	set id address element correctly
+
+2006-04-05  Andreas Büsching   <crunchy@bitkipper.net>
+
+	* version 0.2.5
+
+	* debian package support
+
+	* mlink.c: always create a locally bind socket for sending
+
+2005-09-05  Andreas Büsching  <crunchy@tbitkipper.net>
+
+	* version 0.2.4
+
+	* AUTHORS: changed e-mail address
+
+	* libgmbus/udp.c (mbus_endpoint_new4, mbus_endpoint_new6): removed
+
+	* applied patch from Mark Koch <mkoch79@gmail.com>: fixes for
+	MacOS X
+
+2005-08-31  Andreas Büsching  <crunchy@tzi.de>
+
+	* libgmbus/mconfig.c (mbus_config_read): removed debug
+	messages
+
+2005-08-30  Andreas Büsching  <crunchy@tzi.de>
+
+	* Makefile.am (EXTRA_DIST): add examples mbus configuration files
+	for IPv4 and IPv6
+
+	* version 0.2.3
+
+	* libgmbus/mtrans.c (__retransmit_reliable): removed last usage of
+	printf ll length modifier (again ;-))
+
+	* doc/Doxyfile.in (GENERATE_TREEVIEW): activate treeview for HTML
+	output
+
+2005-08-30  Andreas Büsching  <crunchy@tzi.de>
+
+	* version 0.2.2
+
+	* libgmbus/mtrans.c (mbus_transport_send): if send_unicast is set
+	to FALSE always cal mbus_link_send and not mbus_link_send_unicast
+
+	* libgmbus/mlink.c (mbus_link_new): if send_unicast is set to
+	FALSE no unicast socket is created
+	(__mbus_link_do_send): if no unicast socket is available use
+	multicast socket as fallback (send_unicast == FALSE)
+
+	* libgmbus/mconfig.c (mbus_config_read): read new option send_unicast
+
+	* libgmbus/mconfig.h (struct MConfig): add new option
+	send_unicast: if set to FALSE all traffic is send via multicast;
+	default is TRUE
+
+2005-08-28  Andreas Büsching  <crunchy@tzi.de>
+
+	* version 0.2.2
+
+	* libgmbus/mconfig.c (mbus_config_read): add support IPv6 address;
+	verify that unicast interface and multicast group are fo the same
+	IP version
+
+	* libgmbus/udp.c (mbus_socket_new): use new transport address
+	container MEndpoint; add IPv6 support
+
+	* libgmbus/udp.c, libgmbus/mlink.c: use new type MEndpoint;
+	modifed API where required
+
+2005-08-27  Andreas Büsching  <crunchy@tzi.de>
+
+	* tests/rpcserver.c, tests/rpcclient.c: add signal handler to
+	clean up memory (required for debugging purpose)
+
+2005-08-23  Andreas Büsching  <crunchy@tzi.de>
+
+	* libgmbus/mconfig.c (mbus_config_read): when scope is LOCALHOST
+	explicitly select local interface for unicast traffic
+
+	* libgmbus/udp.[ch]: add documentation
+
+	* libgmbus/udp.[ch]: new type MEndpoint; a generic container for
+	an IPv4 and IPv6 transport address
+
+	* configure.ac: removed one of the rpath hacks as it breaks the
+	libtool script
+
+	* libgmbus/mcommand.c (__mbus_command_init): closed memory leak
+
+	* libgmbus/rpctypes.c (rpc_command_new): replace hopefully the
+	last usage of the %llu printf modified with the
+	mbus_util_int64_to_str function
+
+2005-08-16  Andreas Büsching  <crunchy@tzi.de>
+
+	* version 0.2.1
+
+	* cleanup: checked file headers
+
+	* tests/rpcclient.c: use mbus_util_int64_to_str to print out MInteger
+	objects
+
+	* all these changes were necessary to make gmbus work on a linksys
+	router; the system printf functions and the internal glib
+	functions did not work correctly
+
+	* libgmbus/mheader.c (mbus_header_as_string): use
+	mbus_util_int64_to_str to add sequence number and timestamp to the
+	message header
+
+	* libgmbus/mtypes.c (mbus_integer_as_string): use
+	mbus_util_int64_to_str to convert the integer to a string
+
+	* libgmbus/mutil.h: add declaration for mbus_util_int64_to_str
+
+	* libgmbus/mutil.c (mbus_util_int64_to_str): new function to
+	convert signed and unsigned long long integers (gu?int64) to a
+	string
+
+2005-08-09  Andreas Büsching  <crunchy@tzi.de>
+
+	* version 0.2.0
+
+	* NEWS, TODO: updates
+
+2005-07-22  Andreas Buesching  <crunchy@tzi.de>
+
+	* libgmbus/rpcentity.c (__rpc_entity_incoming_message): closed to
+	memory leaks: free RPCReturnCallback object after the RPC return
+	has been received and processed; free an RPCReturn after the
+	registered callback has been invoked.
+
+2005-07-18  Andreas Büsching  <crunchy@tzi.de>
+
+	* libgmbus/mtrans.c (__retransmit_reliable): when ack for a
+	reliable message is message print out warning with sequence number
+	(__retransmit_reliable): bug fix: initialize MError object before
+	using it
+
+	* Makefile.am (TESTS): check if tests should be build or not
+
+	* configure.ac: add a piece of code that removes the -rpath
+	option; new otpion --enable-tests to dis-/enable the build of the
+	tests directory
+
+2005-06-03  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mtypes.c (mbus_list_read): fixed handling of 64 bit
+	integers (strtoll does not work; use g_ascii_strtoull instead)
+
+2005-06-02  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/rpctypes.c (rpc_command_new): now generate RPC ID from a
+	simple guint64 counter instead of the current time in milliseconds
+
+2005-05-26  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mclient.[ch] (mbus_client_send_reliable):
+        libgmbus/mtrans.[ch] (mbus_transport_is_entity_available):
+        libgmbus/rpcentity.[ch] (rpc_entity_send_return,
+        rpc_entity_send_command): the MAddress argument is convert is const
+        pointer as it is not any more free'd in these functions (so no more
+        copies are required)
+
+        * tests/rpcserver.c, test/rpcclient.c: updated example programs to
+        fit new memeory management rules
+
+2005-05-23  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mlink.c (__mbus_link_udp_event): fixed a bug in memory
+	management; free Mbus message in error case
+	(mbus_link_new): remove debug messages
+
+	* libgmbus/mconfig.c (mbus_config_read): fixed typo
+	s/LONKLOCAL/LINKLOCAL/
+
+	* libgmbus/mclient.c (mbus_client_send_reliable): removed rest of
+	deugging code
+
+	* tests/rpcclient.c: adapted code to new memory management
+
+2005-05-13  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/init.[ch] (mbus_loop_strep): add function
+
+2005-05-10  Andreas Büsching  <crunchy@tzi.de>
+
+        * ChangeLog: fixed typos
+
+        * tests/fredtest.c, tests/rpcclient.c, tests/rpcserver.c: adapt to new
+        API (some additional const pointers)
+
+	* libgmbus/mconfig.[ch]: add option scope to set HOSTLOCAL or
+	LINKLOCAL; HOATLOCAL binds unicast interface to loopback
+
+	* libgmbus/mlink.c (mbus_link_new): if scope is HOSTLOCAL bind unicast
+	socket to loopback interface (127.0.0.1)
+
+        * README: add informtion about the memory management conventions used
+        by gmbus
+
+	* autogen.sh: updated script to work better on systems with update
+	version of the auto* tools
+
+	* tests/Makefile.am: use AM_CFLAGS instead of CFLAGS
+
+        * libgmbus/rpcentity.c (rpc_entity_send_command): fixed newly created
+	segmentation fault
+
+2005-05-09  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/rpcentity.c (rpc_entity_send_command): fixed three memory
+	leaks (needs to be tested by mark ;-)
+
+2005-05-06  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mheader.c (mbus_header_as_string): fixed bug: local variable
+        for timestamp was to short
+
+        * libgmbus/mutil.c (mbus_util_str_to_uint64): renamed; old name was
+        mbus_util_str_to_long
+
+        * libgmbus/mheader.c (mbus_header_read): use mbus_util_str_to_uint64
+
+2005-04-27  Andreas Büsching  <crunchy@tzi.de>
+
+	* libgmbus/mutil.c (mbus_util_str_to_long): use strtoul as this
+	function is only used for converting sequence numbers and timestamps
+
+2005-04-24  Andreas Büsching  <crunchy@tzi.de>
+
+	* version 0.1.0
+
+2005-04-22  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mtypes.h (M_OBJECT_ALLOC): set internal object state to TRUE
+
+        * libgmbus/mtypes.c (mbus_list_read): if invalid symbol is in list
+	an error is returned (mbus_symbol_new may retunr NULL)
+
+        * libgmbus/maddress.c (mbus_address_element_is_equal): two
+	elements are also equal if the keys are equal and one or more of
+	the values are set to '*'
+
+2005-04-21  Andreas Büsching  <crunchy@tzi.de>
+
+        * version 0.1.0pre11
+
+        * libgmbus/mtrans.c (mbus_transport_send): removed memory leak
+
+2005-03-11  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mheader.c (mbus_header_as_string): fixed bug: the timestamp
+        must be in milliseconds not in seconds; thanx to Sönke Schwardt
+        <schwardt@users.sourceforge.net>
+
+2005-03-10  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mutilh (mbus_callback_ok): the optional argument to a
+        callback function may be NULL, but the callback function is still
+        okay; found by Mark Koch <mkoch@tzi.de>
+
+2005-03-09  Andreas Büsching  <crunchy@tzi.de>
+
+        * version 0.1.0pre10
+
+        * libgmbus/rpcentity.c (rpc_entity_send_return): add documentation
+        for the third parameter
+
+        * libgmbus/mtrans.c (__mbus_transport_init): do not send hello
+        message directly, but start a oneshot timer for 0 seconds; this
+        causes the intialization to be finished before the message is send.
+
+        * removed a bunch of debug messages
+
+2005-03-08  Andreas Büsching  <crunchy@tzi.de>
+
+        * version 0.1.0pre9
+
+        * just some some bug fixes
+
+2005-03-07  Andreas Büsching  <crunchy@tzi.de>
+
+        * version 0.1.0pre8
+
+        * libgmbus/rpcentity.c (rpc_entity_send_return): add argument dest,
+        specifing dsetination address for RPC return.
+
+        * libgmbus/mtrans.c (mbus_transport_send): send all message addressed
+        to a unique entity via IP unicast (optimization)
+
+        * libgmbus/mtypes.c (mbus_list_as_string): add a space after the list
+
+        * version 0.1.0pre7
+
+        * libgmbus/mtypes.c (mbus_list_read): fixed a bug that may cause that
+        lists directly after another lists are not detected.
+
+        * libgmbus/mtrans.c (mbus_transport_send): if message is reliable and
+        the destination is unique and known the message is send via unicast
+
+        * libgmbus/mconfig.c (mbus_config_read): storing transport address (IP,
+        port) in network byte order
+
+2005-03-04  Andreas Büsching  <crunchy@tzi.de>
+
+        * version 0.1.0pre6
+
+        * libgmbus/rpcentity.c (__rpc_entity_incoming_message): closed two
+        memory leaks
+
+        * version 0.1.0pre5
+
+        * libgmbus/mtypes.c (__is_valid_symbol): removed
+        (mbus_symbol_is_valid_char): new function; checks if the character is a
+        valid Mbus symbol character
+        (mbus_symbol_is_valid): uses now mbus_symbol_is_valid_char
+
+        * libgmbus/mcommand.c (mbus_command_read): uses
+        mbus_symbol_is_valid_char to find command name
+
+2005-03-01  Andreas Büsching  <crunchy@tzi.de>
+
+        * version 0.1.0pre4
+
+2005-02-28  Andreas Büsching  <crunchy@tzi.de>
+
+        * libgmbus/mtypes.c (mbus_list_read): fixed bug caused by the
+        previous change
+
+        * version 0.1.0pre3
+
+        * libgmbus/mtypes.c (mbus_list_read): changed return value to include
+        the surrounding brackets of the parsed list.
+
+        * libgmbus/mpayload.c (mbus_payload_read): fixed a bug that causes
+        a premature interupt of parsing after the first command (the newline
+        character was not cut off).
+
+        * libmgbus/mcommand.c (mbus_command_read): cut argument list of
+        command from string buffer after parsing
+
+	* libmgbus/maddress.c (mbus_address_hash): fixed memory leak: in error
+	the allocated hash string is not freed
+
+	* almost reached version 0.1.0
+
+        * version 0.1.0pre2
+
+        * version 0.1.0pre1
+
+beginning of 2005
+
+        * started a new Mbus C implementation based on a very old C
+        implementation by Dirk Kutscher <dku@tzi.de> just providing the very
+        basic protocol behaviour with some simplifications.

@@ -1,0 +1,10 @@
+prefix=@PREFIX@
+exec_prefix=@PREFIX@/bin
+libdir=@PREFIX@/lib
+includedir=@INCLUDEDIR@
+
+Name: GMbus
+Description: C Mbus Implementation
+Version: @VERSION@
+Libs: -L${libdir} -lgmbus @GLIB_LIBS@
+Cflags: -I${includedir} @GLIB_CFLAGS@
